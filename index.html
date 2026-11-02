@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>前例</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#E6E9E7;        /* コンクリート */
+  --bg-2:#DCE0DE;
+  --ink:#1C2730;       /* 鉄の青黒 */
+  --ink-2:#4B5860;
+  --rule:#B9C0BE;
+  --gate:#2C6A70;      /* 水門の塗装色 */
+  --paper:#F2F3F1;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#151C22; --bg-2:#1C252C; --ink:#DCE2E3; --ink-2:#98A4A9;
+    --rule:#3A464D; --gate:#6FB3B6; --paper:#1B242B;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#151C22; --bg-2:#1C252C; --ink:#DCE2E3; --ink-2:#98A4A9;
+  --rule:#3A464D; --gate:#6FB3B6; --paper:#1B242B;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:inherit;margin:0;padding:0}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;
+  font-size:17px; line-height:1.95; letter-spacing:.02em;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:38rem;margin:0 auto;padding:3rem 1.25rem 5rem}
+
+/* 見出し */
+header{display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap;margin-bottom:.5rem}
+h1{font-size:2.6rem;font-weight:500;letter-spacing:.3em;line-height:1}
+header p{color:var(--ink-2);font-size:.95rem}
+
+/* 引いた一件：縦書きの一枚 */
+.draw{margin:2.25rem 0 3.5rem;display:grid;gap:1rem}
+.slip{
+  background:var(--paper);
+  border-top:3px solid var(--gate);
+  min-height:22rem; padding:1.5rem 1.25rem;
+  writing-mode:vertical-rl; text-orientation:mixed;
+  font-size:1.25rem; line-height:2.1; font-weight:500;
+  max-height:70vh; overflow-x:auto; overflow-y:hidden;
+}
+.slip:focus{outline:2px solid var(--gate);outline-offset:3px}
+.slip small{display:block;font-size:.8rem;font-weight:400;color:var(--ink-2);margin-left:1.4em;letter-spacing:.08em}
+.slip.added{border-top-color:var(--ink-2)}
+.draw-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.draw-row p{color:var(--ink-2);font-size:.95rem}
+button{
+  font:inherit; font-size:1rem; letter-spacing:.15em;
+  background:var(--gate); color:var(--bg); border:0; border-radius:2px;
+  padding:.55rem 1.4rem; cursor:pointer;
+}
+button:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+button.quiet{background:transparent;color:var(--ink-2);border:1px solid var(--rule);letter-spacing:.08em;padding:.35rem .9rem;font-size:.9rem}
+
+/* 台帳 */
+section{margin-top:3.25rem}
+h2{font-size:1.15rem;font-weight:700;letter-spacing:.12em;padding-bottom:.4rem;border-bottom:1px solid var(--ink)}
+h2 span{font-weight:400;color:var(--ink-2);font-size:.85rem;letter-spacing:.04em;margin-left:1em}
+ol{list-style:none}
+li.e{display:grid;grid-template-columns:5.4rem 1fr;gap:.75rem;padding:.85rem 0;border-bottom:1px solid var(--rule)}
+li.e time{color:var(--ink-2);font-size:.8rem;line-height:2.4;letter-spacing:.04em;font-variant-numeric:tabular-nums}
+li.e p{font-size:1rem}
+li.e p em{font-style:normal;border-bottom:1px solid var(--gate);padding-bottom:1px}
+@media (max-width:480px){
+  .wrap{padding:2rem 1rem 4rem}
+  li.e{grid-template-columns:1fr;gap:.1rem}
+  li.e time{line-height:1.6}
+  h1{font-size:2.2rem}
+  .slip{font-size:1.15rem;min-height:18rem}
+}
+
+/* 足す */
+form{display:grid;gap:.6rem;margin-top:1rem}
+textarea,input{
+  font:inherit;font-size:1rem;color:var(--ink);background:var(--paper);
+  border:1px solid var(--rule);border-radius:2px;padding:.6rem .75rem;width:100%;
+}
+textarea{min-height:5.5rem;resize:vertical}
+textarea:focus,input:focus{outline:2px solid var(--gate);outline-offset:1px}
+.form-row{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
+.form-row input{flex:1 1 9rem;width:auto}
+.hint{color:var(--ink-2);font-size:.85rem}
+li.e .del{margin-left:auto;align-self:start}
+li.e .body{display:flex;gap:.5rem;align-items:flex-start}
+.empty{color:var(--ink-2);font-size:.95rem;padding:.85rem 0}
+
+footer{margin-top:4rem;padding-top:1rem;border-top:1px solid var(--ink);color:var(--ink-2);font-size:.9rem}
+@media (prefers-reduced-motion:no-preference){
+  .slip{transition:opacity .25s}
+  .slip.swap{opacity:0}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>前例</h1>
+  <p>気分の反対側に置いておく、確かめ済みの事実。</p>
+</header>
+
+<div class="draw">
+  <div class="slip" id="slip" tabindex="0" aria-live="polite"></div>
+  <div class="draw-row">
+    <button id="draw" type="button">一件引く</button>
+    <p>全部読まなくていい。一件でいい。</p>
+  </div>
+</div>
+
+<div id="ledger"></div>
+
+<section id="add">
+  <h2>自分で足す<span>この端末のブラウザにだけ残る</span></h2>
+  <ol id="added"></ol>
+  <form id="form">
+    <textarea id="text" placeholder="確かめたこと。感想ではなく、起きたこと。" required></textarea>
+    <div class="form-row">
+      <input id="date" placeholder="いつ（例：2026/11）">
+      <button type="submit">足す</button>
+    </div>
+    <p class="hint">足したものも「一件引く」の対象に入る。</p>
+  </form>
+</section>
+
+<footer>
+  ここにあるのは、本人が過去に確かめたことと、その日付だけ。励ましの言葉は置いていない。置く必要がないから。
+</footer>
+
+</div>
+
+<script>
+const SECTIONS = [
+{
+  title:"続いている数",
+  note:"量は意志の証明ではない。ただ、止まっていない証拠ではある",
+  items:[
+    ["2026/8","ブログは25年続いている。日記4,557件、エッセイ659件、合わせておよそ250万字。"],
+    ["2026/8","25年分の文章で、括弧書きの自己注釈が出る割合がほぼ一定だった。書き手の芯は変わっていない。"],
+    ["2026/8","説得は数字で運ぶ癖がある。だからこのページも数字で書いてある。"],
+    ["2026/7","ZINEは4冊。「あんまり透明じゃない」「そんなに逃げなくてもよかった」「Focal Point 50/51」「移動の記録 01」。ZINEフェス東京に出した。"],
+    ["2026/3〜11","自分用のページを自分で公開している。nikki、そして11月2日の「無理な日の手順書」。必要な道具は、待たずに自分で作っている。"],
+    ["2026/8","Blaugust。8月の毎日ブログを、少なくとを25日目まで一日も欠かさず完走した。"],
+    ["2026/8/29","本名ブログを2025年3月から止まっていた更新から再開し、以後は月1本ペースと決めた。"],
+    ["2026/9","別府ZINE「移動の記録 01」は予定より約1か月早く入稿した。7章構成、A5無線綴じ、Affinity Publisherで組版。"],
+    ["2027/1/17","文学フリマ京都11に出店決定済み。"],
+    ["2026/10末","とやラジオは13回。"],
+    ["2026/10","はてなブックマーク週報を毎週土曜に自動生成する仕組みを自分で組んだ。"],
+    ["2026/7〜9","食事ログを月ごとにタブ分けして記録し、月末に月次分析をかける運用が3か月続いた。"],
+    ["2026/7〜","「ウィークリーとや」という日々のログ（睡眠・体調・できたこと・点数）を続けている。"],
+    ["","CSS・WordPress・GitHubを自分で扱い、外注せずに作りきっている。nikki、手順書、体重管理アプリ。"],
+    ["2026","カメラシステムをFマウントからZマウントへ移行した。Z5II、24-120、40mm。"],
+    ["2026/8","32年ぶりに英語をやり直すと決め、単語帳から始めた。"]
+  ]
+},
+{
+  title:"切り抜けた前例",
+  note:"一度できたことは、再現できる可能性のあること",
+  items:[
+    ["1990年代","就職氷河期。手書きの履歴書を約100社に送り、内定2社。入った。"],
+    ["2026/8〜10","8月に意欲減退・強い眠気・頭痛・かゆみが同時に出た。服薬する薬を調整し、内科・眼科・皮膚科を回り、鉄剤を試し、サプリは成分を調べて見送った。最後に婦人科へ。そこでホルモン補充療法にたどり着き、開始4日目に意欲が戻り始めた。原因を一つずつ潰して突き止めた。当てずっぽうではなく、消去法で。"],
+    ["2026/6","27年続けたことを、キャッシュフロー表の数字で判断して終えた。返事は感謝だった。"],
+    ["2026/6","送金終了という感情的な出来事を、FP相談・資産棚卸し・iDeCoとNISAの再配分まで詰めて、実務として着地させた。感情と実務を分離できた。"],
+    ["2026/9/15","実験として始めたnoteアカウントを5日で休止と決めた。「抱えているものを減らす」ために、始めたものをやめられる。"],
+    ["約5年前","社労士の勉強を1年して撤退した経験を、「失敗」ではなく「選別」と読み替えた。2026年8月に初めて言語化した。"]
+  ]
+},
+{
+  title:"分かっている仕組み",
+  note:"本人のデータで確かめた取扱説明。推測ではない",
+  items:[
+    ["2026/8","動けない原因は完璧主義ではなく、<em>完了条件が決まっていない</em>ことと<em>人目を避けたい</em>こと。効いた対処は、1つのセクションだけを単独で開くこと。"],
+    ["2026/2","雑にやった日も「やった日」に数える。「やれそう」と答え、実際に動いた型。"],
+    ["2026/7〜8","外の予定がある日は、朝の立ち直りが早い。食事記録で再現している。"],
+    ["2026/6","仕事中に気にならないなら、それ自体が答え。思い出したら「また思い出した」と認めて流す。戦わないのが一番消耗しない。"],
+    ["2026/6","落ち着かない日に効いた前例：水門へ行く。行けない日は、撮った写真を見返す。"],
+    ["25年来","進行中の出来事は書かない、という自分ルールがある。今は進行中。結論を急がなくていいのは、このルールの帰結。"],
+    ["繰り返し","発見をClaudeの手柄にしがち。しかし選び、判断したのは本人。記録上、何度も確認済み。"],
+    ["2026/2","起動が重いときは「いつやるか」だけ先に決める。判断の数が減る。"],
+    ["2026/9","骨子は自分で立て、AIには照合と校閲。この型なら書ける。"],
+    ["2026/9","成果が見える形になるまでには必ず長い見えない期間がある。他人を見るときは「圧縮されたもの」、自分を見るときは「まだ助走」、証明を待つときは「時差」。"],
+    ["2026/9","成果ではなく打席を数える。"],
+    ["2026/8","着手を「成果の開始」ではなく「ゼロ稿を出す」に再定義すると動ける。ファイルを開く、資料を机に出す、3行メモする。"],
+    ["2026/8","良い結果は「うまくいった気がする」とぼかし、悪い自己評価は断定で書く癖がある。採点の非対称は文法レベルに出る。"],
+    ["2026/7","他人の仕事を見る目は公平なのに、自分にだけ別の採点表を使っている。"],
+    ["2026/6","「編集者の目が自分の人生にまで常時オンになっている」のが最大の強みであり最大の弱点。長所と短所の出どころが同じ一点。"],
+    ["2026/7","感情を言語化してから動く順番が自分の型。衝動で動くことがほとんどない。"],
+    ["2026/7","大きな変更は先送りせず実行する。送金終了、口座再構築、カメラ移行。"],
+    ["2026/6","経験を作品に変換する回路がある。ただし味わい切る前に「どう編集できるか」が起動するリスクも自覚している。"],
+    ["2026/7","答えの出た問いに戻ってしまう癖がある。戻ると頭痛や動悸として体に出る。"],
+    ["2026/7","体のサインの検知が遅く、対処が事後になりがち。"],
+    ["2026/7","朝の主観点数は午後の機能を予測しない。"],
+    ["2026/7","記録すること自体が心理的ハードルを少し下げる。"],
+    ["2026/7〜8","自炊の障壁は「料理」の定義が大きすぎることだった。無能ではなかった。"],
+    ["2026/7","ポモドーロは自分の集中バースト型に合わない。反復より完了と蓄積で動く。"],
+    ["","情熱が起きると発信面を増やしたくなる。理由は「1つのブログに入れるには振り幅が大きすぎる」。"],
+    ["2026/10","動かないのが苦手。新規着手を遅らせる仕組み（2週間待つ、始めるなら何かを手放す）が必要。"],
+    ["2026/7","自分の性質を敵として扱うのをやめると決めた。縮小ではなく「調光」。"],
+    ["2026/9","公開前に「評価語を削って数字と具体で書く」のが自分の原稿の直し方。別府ZINEで確認した。"],
+    ["2026/9","「何者かになる」と「何者かとして扱われる」は別の出来事で、時差がある。前者はもうかなり進んでいる。"]
+  ]
+},
+{
+  title:"動く場所、動くもの",
+  note:"",
+  items:[
+    ["","岩淵水門。扇橋閘門。荒川ロックゲート。関宿水閘門。"],
+    ["","Z5II、24-120、40mm。"],
+    ["","バイク。長い空白のあとに戻ってきたもの。"],
+    ["","うつわ。"]
+  ]
+},
+{
+  title:"保留でいい判断",
+  note:"決めていないことは、決めていないままで正しい",
+  items:[
+    ["2026/9","TOEICの勉強を始める。期日は決まっていない。"],
+    ["2026/9/15","背表紙ができる量のZINEは当面やめた。抱えるものを減らす判断も、前例。"],
+    ["2027/1/17","別府ZINEの初頒布は文学フリマ京都。本は刷り上がって手元にあるが、頒布は待つと決めた。"],
+    ["2026/10","とやラジオで章タイトルを全部読む回は未収録。文フリ京都の告知回に回す案で止めてある。"],
+    ["2026/7","「上手さの外側」で試すと面白いと言われたこと（小説、人を撮る、目的のない企画）は未着手。やるかどうかも決めていない。"],
+    ["2026/8","YAPCは今回で終了。次の関わり先は探していない。"],
+    ["","次の「移動の記録」02の行き先は決めていない。"]
+  ]
+}
+];
+
+const KEY = "zenrei:added";
+function loadAdded(){ try{ const r = localStorage.getItem(KEY); return r ? JSON.parse(r) : []; }catch(e){ return []; } }
+function saveAdded(list){ try{ localStorage.setItem(KEY, JSON.stringify(list)); }catch(e){} }
+
+const ledger = document.getElementById("ledger");
+SECTIONS.forEach(s=>{
+  const sec = document.createElement("section");
+  sec.innerHTML = `<h2>${s.title}${s.note?`<span>${s.note}</span>`:""}</h2><ol></ol>`;
+  const ol = sec.querySelector("ol");
+  s.items.forEach(([d,t])=>{
+    const li = document.createElement("li"); li.className="e";
+    li.innerHTML = `<time>${d}</time><p>${t}</p>`;
+    ol.appendChild(li);
+  });
+  ledger.appendChild(sec);
+});
+
+const addedEl = document.getElementById("added");
+function renderAdded(){
+  const list = loadAdded();
+  addedEl.innerHTML = "";
+  if(!list.length){ addedEl.innerHTML = `<li class="empty">まだない。次に確かめたことがあれば、ここに。</li>`; return; }
+  list.forEach((it,i)=>{
+    const li = document.createElement("li"); li.className="e";
+    li.innerHTML = `<time></time><div class="body"><p></p><button type="button" class="quiet del">消す</button></div>`;
+    li.querySelector("time").textContent = it.d || "";
+    li.querySelector("p").textContent = it.t;
+    li.querySelector(".del").addEventListener("click",()=>{
+      const l = loadAdded(); l.splice(i,1); saveAdded(l); renderAdded();
+    });
+    addedEl.appendChild(li);
+  });
+}
+renderAdded();
+
+document.getElementById("form").addEventListener("submit",e=>{
+  e.preventDefault();
+  const t = document.getElementById("text").value.trim();
+  const d = document.getElementById("date").value.trim();
+  if(!t) return;
+  const l = loadAdded(); l.push({t,d}); saveAdded(l);
+  document.getElementById("text").value=""; document.getElementById("date").value="";
+  renderAdded();
+});
+
+const slip = document.getElementById("slip");
+let last = -1;
+function pool(){
+  const base = SECTIONS.flatMap(s=>s.items.map(([d,t])=>({d,t,added:false})));
+  const add = loadAdded().map(it=>({d:it.d,t:it.t,added:true}));
+  return base.concat(add);
+}
+function draw(){
+  const p = pool();
+  let i; do{ i = Math.floor(Math.random()*p.length); }while(p.length>1 && i===last);
+  last = i;
+  const it = p[i];
+  slip.classList.add("swap");
+  setTimeout(()=>{
+    slip.className = "slip" + (it.added ? " added" : "");
+    slip.innerHTML = it.t + (it.d ? `<small>${it.d}</small>` : "");
+    if(it.added){ slip.textContent = it.t; if(it.d){ const s=document.createElement("small"); s.textContent=it.d; slip.appendChild(s);} }
+  }, 150);
+}
+document.getElementById("draw").addEventListener("click", draw);
+draw();
+</script>
+</body>
+</html>
